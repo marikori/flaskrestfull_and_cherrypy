@@ -57,6 +57,7 @@ def call(uri, data = None, headrs = None, method = "GET"):
     resp_json = json.loads(resp.read().decode('utf-8'))
     
     print("RESPONSE")
+    print(resp.code)
     print(json.dumps(resp_json, indent=4, sort_keys=True))
     print()
     
@@ -75,18 +76,15 @@ if __name__ == '__main__':
         else:
             method = args.method[0].upper()
         
-        # "http://localhost:5000"
-        # "https://localhost:8080"
         url = args.url[0].lower()
         
         data = ""
         if args.data:
             with open(args.data[0], 'r') as f:
                 data = json.load(f)
-    
-    
-    headrs = {'Content-Type' : 'application/json'}
-    creds = "user007:python"
-    headrs['Authorization'] = b"Basic " + base64.b64encode(creds.encode('ascii'))
-    
-    call(url, headrs = headrs, method = method)
+        
+        headrs = {'Content-Type' : 'application/json'}
+        creds = "user007:python"
+        headrs['Authorization'] = b"Basic " + base64.b64encode(creds.encode('ascii'))
+        
+        call(url, data = json.dumps(data).encode("utf-8"), headrs = headrs, method = method)

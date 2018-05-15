@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-'''
-@author: marikori
-'''
 
 import argparse, sys
 import cherrypy
@@ -34,15 +31,15 @@ def GetArgs():
 
 def main():
     
-    api.add_resource(TaskListRestApi, '/todo/api/v1.0/tasks/', endpoint = 'tasks')
-    api.add_resource(TaskRestApi, '/todo/api/v1.0/tasks/<int:task_id>/', endpoint = 'task')
+    api.add_resource(TaskListRestApi, '/todo/api/v1.0/tasks', endpoint = 'tasks')
+    api.add_resource(TaskRestApi, '/todo/api/v1.0/tasks/<int:id>', endpoint = 'task')
     
     args = GetArgs()
     
     if args is not None:
         
         if args.use_FlaskDev:
-            app.run()
+            app.run(debug = False)
         
         elif args.use_CherryPy:
             cherrypy.tree.graft(app.wsgi_app, '/')
