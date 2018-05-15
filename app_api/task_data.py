@@ -1,15 +1,8 @@
-'''
-@author: marikori
-'''
+"""Fake database handler"""
 
 class TaskData(object):
-    '''
-    classdocs
-    '''
+    """Implements the demo database handler"""
     def __init__(self):
-        '''
-        Constructor
-        '''
         self.tasks = [
             {
                 'id': 1,

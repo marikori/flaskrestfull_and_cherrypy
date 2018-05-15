@@ -1,7 +1,3 @@
-'''
-@author: marikori
-'''
-
 errs = {
     
     'TaskNotFound': {
