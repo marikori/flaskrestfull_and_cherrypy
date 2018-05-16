@@ -5,10 +5,9 @@ errs = {
         'status': 404,
     },
     
-    'InvalidUsage': {
+    'BadRequest': {
         'message': "Bad Request.",
         'status': 400,
-        'extra': "Any extra information you want.",
     }
     
 }

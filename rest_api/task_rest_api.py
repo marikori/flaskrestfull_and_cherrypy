@@ -2,9 +2,22 @@ from app_api.task_api import TaskApi
 from app_api.task_data import TaskData
 
 from flask_restful import Resource, fields, marshal
-from flask import request 
+from flask import request, make_response, jsonify
+from flask_httpauth import HTTPBasicAuth
 
 app_data = TaskData()
+auth = HTTPBasicAuth()
+
+@auth.get_password
+def get_password(username):
+    if username == 'user007':
+        return 'python'
+    return None
+
+
+@auth.error_handler
+def unauthorized():
+    return make_response(jsonify({'error': 'Unauthorized acce'}), 401)
 
 
 task_fields = {
@@ -15,6 +28,8 @@ task_fields = {
 }
 
 class TaskListRestApi(Resource):
+    
+    decorators = [auth.login_required]
     
     def __init__(self):
         self.task_api = TaskApi(app_data)
@@ -30,6 +45,8 @@ class TaskListRestApi(Resource):
     
 
 class TaskRestApi(Resource):
+    
+    decorators = [auth.login_required]
     
     def __init__(self):
         self.task_api = TaskApi(app_data)
